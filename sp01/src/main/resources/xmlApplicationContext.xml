@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Spring이 관리할 Bean등록 : package name + class name -->
+	<bean class="com.yedam.app.xml.SamsungTV"/>
+	<bean id="tv" class="com.yedam.app.xml.LGTV"/>
+	
+	<!-- DI 설정 : 이때 id를 쓰는 EU는 코드 작성할때 id쓰는게 훨씬편해서-->
+	<bean id="chef" class="com.yedam.app.xml.Chef"/> 
+	<bean class="com.yedam.app.xml.Restaurant"> 
+		<!-- 생성자 인젝션 : 권장방식-->
+		<!-- constructor-arguments : 생성자로 넘어가야하는부분, 여기서 referance속성은 위에 생성된 Bean을 참조하겠다는뜻이다.) -->
+		
+		<constructor-arg ref="chef"/> 
+		<!-- 매개변수 여러개일땐 대충이렇게 
+		<constructor-arg>
+		<ref></ref>
+		<ref></ref>
+		<ref></ref>
+		<value></value>
+		</constructor-arg>
+		 -->
+		 
+		 <!-- Setter Insection : 일반메서드가 아닌 세터의 구조를 가진 메서드에 한함 -->
+		 <!-- property -> 필드 : set+name으로 구성된 메서드명을 찾음, 실제참조 -> id가 chef인 태그 --> 
+		 <!-- <property name="chef" ref="chef"/> -->
+	</bean>
+</beans>
