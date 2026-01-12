@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- MyBatis 설정을 담당하는 태그 : configuration -->
+<configuration>
+	<!-- 환경(DB Connection, Transaction)에 대한 설정 : DB와 Transaction 에 대한 부분을 처리한다. -->
+	<!-- environment 태그의 ID가 development 인것을 기본으로 쓰겠다. -->
+	<environments default="development">
+		<!-- environments 인 이유 환경에대한 설정을 여러개등록해놓고 개발환경인지 운영환경인지에따라 다른세팅을하는것이 가능하다. -->
+		<environment id="development">
+			<!-- dataSource 제일 중요함 : DB에대한 정보, POOLED : 커넥션 다루는 부분임 -->
+			<dataSource type="POOLED">
+				<!-- DB에접속하기위한 Key 가 정해져있다. : 변경 불가능하고 반드시 개발자가 채워줘야한다. -->
+				<property name="driver" value="oracle.jdbc.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="hr"/>
+				<property name="password" value="hr"/>
+			</dataSource>
+			<!-- 트랜잭션만 제어하는 객체가 따로있다. : Commit/RollBack 쓸지말지, JDBC로하면 오토커밋그대로쓰는거임 -->
+			<transactionManager type="JDBC" />
+		</environment>
+
+		<!-- 운영할때는 다른 DB쓴다면 여기하나더만들고 실행할때 다른주체 쓰면된다. : 일단 하나의환경으로할거라 이친구 생략-->
+		<!-- <environment id="production" /> -->
+		
+		<!-- Mybatis(Option) 를 사용할 때 적용할 설정 : 사용자 편의 -->
+		<settings>
+			<setting name="mapUnderscoreToCamelCase " value="true"/>
+			<setting name="jdbcTypeForNull" value="null"/>
+		</settings>
+		<!-- typeHandler : jdbcType(DB) <=> JavaType(Java) 실제로 쓸일이 없을탠데 일단알랴줌 -->
+		<typeHandlers>
+			<!-- <typeHandler javaType="java.sql.TimeStamp" handler="org.apache.ibatis.type.DataTypeHandler"/> -->
+		</typeHandlers>
+		<!-- Mapper 설정 : mapper태그를 통해 SQL입력에대해 지원하고있으시다.  -->
+		<mappers>
+			<mapper resource="mapper/emp-map.xml" />
+		</mappers>
+	</environments>
+	
+</configuration>

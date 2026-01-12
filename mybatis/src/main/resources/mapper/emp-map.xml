@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.mybatis.mapper.EmpMapper">
+	<!-- Interface EmpMapper에 대응되는 Mapper.xml -->
+	<!-- 전체조회 : selectList<E> 의 제네릭타입에 대응하는 정보들을 넣어줘야하는데 이 resultType이 태그마다 달라서 중요하다. -->
+	<select id="selectAll" resultType="EmpVO">
+		SELECT employee_id
+				, first_name
+				, last_name
+				, email
+				, phone_number
+				, hire_date
+				, job_id
+				, salary
+				, commission_pct
+				, manager_id
+				, department_id
+		FROM employees
+		ORDER BY employee_id
+	</select>
+	<!-- 단건조회 -->
+	<select id="selectInfo" 
+	parameterType="EmpVO"
+	resultType="EmpVO">
+	<!-- result Type에 Mapping 된 Field가 없으면 그 값은 그냥 버려진다 ex(cont(*) as count 형식으로 별칭붙이고 별칭을 필드로 만들어줘야함) -->
+		SELECT employee_id
+				, first_name
+				, last_name
+				, email
+				, phone_number
+				, hire_date
+				, job_id
+				, salary
+				, commission_pct
+				, manager_id
+				, department_id
+		FROM employees
+		WHERE employee_id = #{employeeId}
+		<!-- 태그 안의 ${}는 PreparedStatement의 ?을 의미 -->
+		<!-- #{} 안에 들어가는 대상은 parameterType의 필드명(EmpVO.employeeId) -->
+	</select>
+	<!-- 등록 -->
+	<insert id="insertInfo" parameterType="EmpVO">
+		INSERT INTO employees
+					(
+						employee_id
+						, last_name
+						, email
+						, hire_date
+						, job_id
+					)
+					VALUES
+					(
+						EMPLOYEES_SEQ.NEXTVAL
+						,#{lastName}
+						,#{email}
+						,sysdate
+						,#{jobId}
+					)
+	</insert>
+	<!-- 수정 -->
+	<update id="updateInfo" parameterType="EmpVO">
+		UPDATE employees
+		SET
+			first_name = #{firstName}
+			, salary   = #{salary}
+		WHERE employee_id = #{employeeId}
+	</update>
+	<!-- 삭제 -->
+	<!-- parameterType 이 기본타입일 경우에는 니맘대로 써도된다.  -->
+	<delete id="deleteInfo" parameterType="int">
+		DELETE FROM employees
+		WHERE employee_id = #{empId}
+	</delete>
+</mapper>
