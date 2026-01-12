@@ -2,20 +2,30 @@ package com.yedam.app.mybatis.common;
 
 import java.util.List;
 
+import com.yedam.app.mybatis.mapper.DeptMapper;
+import com.yedam.app.mybatis.mapper.DeptMapperImpl;
 import com.yedam.app.mybatis.mapper.EmpMapper;
 import com.yedam.app.mybatis.mapper.EmpMapperImpl;
+import com.yedam.app.mybatis.service.DeptVO;
 import com.yedam.app.mybatis.service.EmpVO;
 
 public class MybatisExample {
 	private static EmpMapper empMap = new EmpMapperImpl();
+	private static DeptMapper deptMap = new DeptMapperImpl();
 	
 	public static void main(String[] args) {
 //		selectAll();
 //		selectInfo();
 //		insertInfo();
 //		updateInfo();
-		deleteInfo();
-
+//		deleteInfo();
+		
+//		seletDeptAll();
+//		seletDeptInfo();
+//		insertDeptInfo();
+		updateDeptInfo();
+		//deleteDeptInfo();
+		
 	}
 	
 	public static void selectAll() {
@@ -55,6 +65,45 @@ public class MybatisExample {
 	
 	public static void deleteInfo() {
 		int result = empMap.deleteInfo(210);
+		System.out.println(result);
+	}
+	
+	// Departments Table
+	public static void seletDeptAll() {
+		List<DeptVO> list = deptMap.selectAll();
+		for (DeptVO deptVO : list) {
+			System.out.println(deptVO);
+		}
+	}
+	
+	public static void seletDeptInfo() {
+		DeptVO deptVO = new DeptVO();
+		deptVO.setDepartmentId(600);
+		
+		DeptVO findDeptVO = deptMap.selectInfo(deptVO);
+		System.out.println(findDeptVO);
+	}
+	
+	public static void insertDeptInfo() {
+		DeptVO deptVO = new DeptVO();
+		deptVO.setDepartmentName("gohome");
+		
+		int result = deptMap.insertInfo(deptVO);
+		System.out.println(result);
+	}
+	
+	public static void updateDeptInfo() {
+		DeptVO deptVO = new DeptVO();
+		deptVO.setDepartmentId(610);
+		deptVO.setManagerId(200);
+		deptVO.setLocationId(1700);
+		
+		int result = deptMap.updateInfo(deptVO);
+		System.out.println(result);
+	}
+	
+	public static void deleteDeptInfo() {
+		int result = deptMap.deleteInfo(610);
 		System.out.println(result);
 	}
 }
