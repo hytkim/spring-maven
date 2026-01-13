@@ -23,8 +23,8 @@ public class MybatisExample {
 //		seletDeptAll();
 //		seletDeptInfo();
 //		insertDeptInfo();
-		updateDeptInfo();
-		//deleteDeptInfo();
+//		updateDeptInfo();
+		deleteDeptInfo();
 		
 	}
 	
@@ -95,7 +95,7 @@ public class MybatisExample {
 	public static void updateDeptInfo() {
 		DeptVO deptVO = new DeptVO();
 		deptVO.setDepartmentId(610);
-		deptVO.setManagerId(200);
+		deptVO.setManagerId(100);
 		deptVO.setLocationId(1700);
 		
 		int result = deptMap.updateInfo(deptVO);

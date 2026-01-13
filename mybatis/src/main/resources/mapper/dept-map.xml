@@ -40,12 +40,12 @@
 		UPDATE departments
 		SET
 			manager_id  = #{managerId}
-			location_id = #{locationId}
+			, location_id = #{locationId}
 		WHERE department_id = #{departmentId}
 	</update>
 	<!--  삭제 -->
 	<delete id="deleteInfo" parameterType="int">
 		DELETE FROM departments
-		WHERE department_id = ${deptId}
+		WHERE department_id = #{deptId}
 	</delete>
 </mapper>
