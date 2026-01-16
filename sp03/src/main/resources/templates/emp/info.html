@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/">
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body> <!--/* 주석 */-->
+	<div class="container text-center">
+		<h3>사원 상세 조회</h3>
+		<div>
+			<div class="input-group mb-3">
+				<label for="eId" class="input-group-text">사원번호</label>
+				<input class="form-control" id="eId" type="text" th:value="${emp.employeeId}" readonly />
+			</div>
+			<div class="input-group mb-3">
+				<label for="ename" class="input-group-text">이름</label>
+				<input class="form-control" id="ename" type="text" th:value="${emp.lastName}" readonly />
+			</div>
+			<div class="input-group mb-3">
+				<label for="email" class="input-group-text">이메일</label>
+				<input class="form-control" id="email" type="email" th:value="${emp.email}" readonly />
+			</div>
+			<div class="input-group mb-3">
+				<label for="hdate" class="input-group-text" >입사일</label>
+				<input class="form-control" id="hdate" type="date" th:value="${#dates.format(emp.hireDate, 'yyyy-MM-dd')}" readonly />
+			</div>
+			<div class="input-group mb-3">
+				<label for="job" class="input-group-text" >업무</label>
+				<input class="form-control" id="job" type="text" th:value="${emp.jobId}" readonly />
+			</div>
+			<div class="input-group mb-3">
+				<label for="sal" class="input-group-text" >급여</label>
+				<input class="form-control" id="sal" type="number" th:value="${emp.salary}"  step="0.01" readonly />
+			</div>
+			<div>
+				<button type="button" class="btn btn-secondary">수정</button>
+				<button type="button" class="btn btn-primary">목록</button>
+				<button type="button" class="btn btn-danger">삭제</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
