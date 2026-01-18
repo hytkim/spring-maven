@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+	crossorigin="anonymous"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<!--/* 주석 */-->
+	<form name="updateForm" th:object="${dept}"
+		class="container text-center">
+		<h3>정보 수정</h3>
+		<div>
+			<div class="input-group mb-3">
+				<label for="dId" class="input-group-text">회사번호</label> <input
+					class="form-control" id="dId" type="text" name="didInput"
+					th:field="*{departmentId}" readonly />
+			</div>
+			<div class="input-group mb-3">
+				<label for="dname" class="input-group-text">회사이름</label> <input
+					class="form-control" id="dname" type="text"
+					th:field="*{departmentName}" />
+			</div>
+			<div class="input-group mb-3">
+				<label for="mId" class="input-group-text">관리자코드</label> <input
+					class="form-control" id="mId" type="text" th:field="*{managerId}" />
+			</div>
+			<div class="input-group mb-3">
+				<label for="lId" class="input-group-text">지역코드</label> <input
+					class="form-control" id="lId" type="text" th:field="*{locationId}" />
+			</div>
+			<div>
+				<button name="updateBtn" type="button" class="btn btn-secondary">수정</button>
+				<button name="deleteBtn" type="button" class="btn btn-danger">삭제</button>
+			</div>
+		</div>
+	</form>
+	<script>
+    const updateAjax = (e) => {
+      // 1) 전송 데이터 반환
+      let dataObj = getDeptObj();
+      // 2) Ajax
+      fetch("deptUpdate", {
+        method: "post",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(dataObj),
+      })
+        .then((res) => res.json)
+        .then((result) => {
+          console.log(result);
+        });
+    };
+    const getDeptObj = () => {
+      let formData = new FormData(updateForm);
+
+      let formObj = {};
+      formData.forEach((val, key) => {
+        console.log(val, key);
+        formObj[key] = val;
+      });
+      return formObj;
+    };
+    
+    let inputTag = updateForm.querySelector("[name='departmentId']");
+    let url = `deptDelete?deptId=${inputTag.value}`;
+    const deleteAjax = (e) =>{
+    	location.href = url;
+    	/* fetch(url)
+            .then((res) => res.json)
+            .then((result) => {
+              console.log(result);
+            }); */
+    }
+    
+    updateForm.querySelector("form [name='updateBtn']").addEventListener("click", updateAjax);
+    updateForm.querySelector("form [name='deleteBtn']").addEventListener("click", deleteAjax);
+  </script>
+</body>
+</html>
