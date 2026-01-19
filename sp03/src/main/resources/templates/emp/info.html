@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="https://www.thymeleaf.org/">
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/" 
+				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				layout:decorate="~{common\layouts\default_layout}"
+				layout:fragment="Content">
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -35,9 +36,9 @@
 				<input class="form-control" id="sal" type="number" th:value="${emp.salary}"  step="0.01" readonly />
 			</div>
 			<div>
-				<button type="button" class="btn btn-secondary">수정</button>
-				<button type="button" class="btn btn-primary">목록</button>
-				<button type="button" class="btn btn-danger">삭제</button>
+				<button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/empUpdate(employeeId=${emp.employeeId})}'|">수정</button>
+				<button type="button" class="btn btn-primary" th:onclick="|location.href='@{/empList}'|" >목록</button>
+				<button type="button" class="btn btn-danger" th:onclick="|location.href='@{/empDelete(empId=${emp.employeeId})}'|" >삭제</button>
 			</div>
 		</div>
 	</div>

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="https://www.thymeleaf.org/">
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/" 
+				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				layout:decorate="~{common\layouts\default_layout}"
+				layout:fragment="Content">
 <head>
 <meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
-<body> <!--/* 요즘엔 테이블태그 잘 안쓴다는데 귀찮으니까 일단쓰꼐요 */-->
+<body>
+	<!--/* 요즘엔 테이블태그 잘 안쓴다는데 귀찮으니까 일단쓰꼐요 */-->
 	<div class="container text-center">
 		<h3>전체 사원 조회</h3>
 		<table class="table border ">
@@ -20,6 +22,7 @@
 				</tr>
 			</thead>
 			<tbody>
+					<!-- <tr	th:onclick="|location.href='@{/empInfo(employeeId=${info.employeeId})}'|"> -->
 				<th:block th:each="info, status : ${emps}">
 					<tr>
 						<td>[[ ${status.count} ]]</td>
@@ -32,6 +35,17 @@
 			</tbody>
 		</table>
 	</div>
-
+	<script>
+		let contextPath = document.querySelector('meta[name="ctxPath"]').getAttribute('value') ?? '';
+		document.querySelectorAll('tbody tr')
+						.forEach(trTag => {
+							trTag.addEventListener('click',(e) => {
+								let trTag = e.currentTarget;
+								let eId = trTag.querySelector('td:nth-of-type(2)').textContent;
+								let url = contextPath + '/empInfo?employeeId=' + eId;
+								location.href = url;
+							});
+						});
+	</script>
 </body>
 </html>
