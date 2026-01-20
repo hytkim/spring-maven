@@ -12,7 +12,7 @@
 	<script>
 		document.querySelector('.uploadBtn')
 			.addEventListener('click', function(event){
-			let formData = new FormData();
+			let formData = new FormData(); // 얘 자체가 컨텐츠타입이멀티파트폼데이터라는헤더정보를 가지고 있음
 			// 1) <form/>태그 내부의 입력태그 정보를 한번에 받음
 			// 2) AJAX를 이용하여 'Content-type:multipart/form-data'를 보내는 경우
 			

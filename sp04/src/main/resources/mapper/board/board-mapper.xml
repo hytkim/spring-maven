@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--/* namespace를 통해 mapperInterface와 연결함 */-->
+<mapper namespace="com.yedam.app.board.mapper.BoardMapper">
+	<!--/* 전체조회 : 세미콜론 넣지마라 parameterType="BoardVO" */-->
+	<select id="selectAll" resultType="BoardVO">
+		SELECT bno
+			, title
+			, contents
+			, writer
+			, regdate
+			, updatedate
+			, image
+		FROM board
+		ORDER BY bno
+	</select>
+</mapper>
