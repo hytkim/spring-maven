@@ -1,6 +1,8 @@
 package com.yedam.app.board.service;
 
-import java.util.Date;
+import java.util.Date; // yyyy/MM/dd 로 날짜를처리, 
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,7 +21,9 @@ public class BoardVO {
 	private String  title;
 	private String  contents;
 	private String  writer;
-	private Date    regdate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date    regdate;    // DB에서전달하는 Data는 yyyy-MM-dd 라서 변환이 안 됨
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date    updatedate;
 	private String  image;
 }

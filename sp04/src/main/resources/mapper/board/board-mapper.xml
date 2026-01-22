@@ -14,4 +14,48 @@
 		FROM board
 		ORDER BY bno
 	</select>
+	
+	<!--/* 단건조회 : 조건이 들어가는 부분에 있어 MyBatis는 #을 기준으로 움직인다, $는 다른 용도가 있음! */-->
+	<!--/* Like 사용 시 문자열 결합에 주의하기 : Where bno LIKE '%' || #{bno}  */--> 
+	<select id="selectInfo" resultType="BoardVO"
+							parameterType="BoardVO">
+		SELECT bno
+			, title
+			, contents
+			, writer
+			, regdate
+			, updatedate
+			, image
+		FROM board
+		WHERE bno = #{bno}
+	</select>
+	
+	<!--/* 등록 */-->
+	<insert id="insertInfo" parameterType="BoardVO">
+		<!--/* 시퀀스가 없을 경우 PK */-->
+		<selectKey keyProperty="bno"
+					resultType="Integer"
+					order="BEFORE">
+			SELECT NVL(MAX(bno) + 1, 1000)
+			FROM board
+		</selectKey>
+		INSERT INTO board
+					(
+						bno
+						, title
+						, contents
+						, writer
+						, regdate
+						, image 
+					)
+					VALUES
+					(
+						#{bno}
+						, #{title}
+						, #{contents}
+						, #{writer}
+						, #{regdate}
+						, #{image}
+					)
+	</insert>
 </mapper>
